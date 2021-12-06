@@ -1,40 +1,35 @@
 #include <iostream>
 using namespace std;
 
-int a[11], b[11];
 int main() {
-    int i, score_a=0, score_b=0, draw_cnt=0;
-    for (i=1; i<=10; i++) {
-        cin >> a[i];
+    int i, A[10], B[10], as=0, bs=0, lw=0; // as: A score, bs: B score, lw: last winner
+    for (i=0; i<10; i++) {
+        cin >> A[i];
     }
-    for (i=1; i<=10; i++) {
-        cin >> b[i];
+    for (i=0; i<10; i++) {
+        cin >> B[i];
     }
-    for (i=1; i<=10; i++) {
-        if (a[i]==b[i]) {
-            score_a++;
-            score_b++;
-            draw_cnt++;
-        } else if (a[i]>b[i]) {
-            score_a += 3;
-        } else if (a[i]<b[i]) {
-            score_b += 3;
+    for (i=0; i<10; i++) {
+        if (A[i]>B[i]) {
+            as += 3;
+            lw = 1;
+        } else if (A[i]<B[i]) {
+            bs += 3;
+            lw = 2;
+        } else {
+            as += 1;
+            bs += 1;
         }
     }
-    cout << score_a << " " << score_b << endl;
-    if (score_a>score_b) cout << "A" << endl;
-    else if (score_a<score_b) cout << "B" << endl;
-    else if (score_a==score_b) {
-        for (i=10; i>=1; i--) {
-            if (a[i]>b[i]) {
-                cout << "A" << endl;
-                break;
-            } else if (a[i]<b[i]) {
-                cout << "B" << endl;
-                break;
-            }
-        }
-        if (draw_cnt==10) cout << "D" << endl;
-    }
+    cout << as << " " << bs << endl;
+    
+    if (as==bs) {
+        if (lw==0) cout << "D" << endl;
+        else if (lw==1) cout << "A" << endl;
+        else cout << "B" << endl;
+    } else if (as>bs) {
+        cout << "A" << endl;
+    } else cout << "B" << endl;
+    
     return 0;
 }
