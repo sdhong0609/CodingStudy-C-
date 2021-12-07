@@ -1,22 +1,23 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int main() {
-    int n, k, tmp[100001], i, j, sum, max=-10000000;
+    int n, k, i, sum=0, max;
     cin >> n >> k;
-    for (i=1; i<=n; i++) {
-        cin >> tmp[i];
+    vector<int> a(n);
+    
+    for (i=0; i<n; i++) {
+        cin >> a[i];
     }
-
-    for (i=1; i<=n-k+1; i++) {
-        sum=0;
-        for (j=i; j<=i+k-1; j++) {
-            sum += tmp[j];
-            if (max < sum) max = sum;
-        }
+    for (i=0; i<k; i++) {
+        sum += a[i];
     }
-
+    max = sum;
+    for (i=k; i<n; i++) {
+        sum = sum + a[i] - a[i-k];
+        if (max < sum) max = sum;
+    }
     cout << max << endl;
-
     return 0;
 }
